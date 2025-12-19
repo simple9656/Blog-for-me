@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html theme="dark" showBanner="true" hasBanner="false" > 
+<html theme="dark" showBanner="true" hasBanner="true" > 
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
@@ -48,6 +48,13 @@
 
 <body>
   
+  
+    
+<div id="banner" class=" is_home ">
+  <img src="/images/p.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
    
   <div id="main-grid" class="  ">
     <div id="nav" class=" is_home "  >
@@ -164,11 +171,6 @@
 
 
     
-      
-
-
-
-    
   </div>
 </sidebar>
     </div>
@@ -178,6 +180,8 @@
 
 
 <article id="post-misc" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
    
   <div class="article-inner">
     <div class="article-main">
@@ -214,26 +218,17 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <div class="truncate-text">
-            
-              
-            
-          </div>
+          
         
       </div>
 
+       
+        <footer class="article-footer">
+           
+        </footer>
          
     </div>
     
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2025/12/18/misc/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
      
   </div>
   
@@ -249,6 +244,8 @@
 
 
 <article id="post-misc各种题型思路总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
    
   <div class="article-inner">
     <div class="article-main">
@@ -287,29 +284,225 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <div class="truncate-text">
-            
-              misc各种题型思路总结1.签到题遇到签到题难度的题目。首先先看看题干有没有给出flag的线索，如果给的是网页，直接f12或者ctrl+u先查看源代码，通过ctrl+f查找flag或者是类似moectf{}等各大平台要求的结构。如果给的是图片，直接用010 editor 打开看看文件头和文件尾，查找flag,当然这只是签到题的难度。
-2.隐写：(1)有些图片可能长宽设置的太小，改下大小就行，即为长宽修复，但要符合crc标准，有些文件的文件头或者文件尾被篡改，这时候就需要我们修复。
-(2)lsb隐写：用stegsolve查看各个通道，查看有没有flag的信息或者有没有其他文件的文件头特征。
-(3)binwalk的使用：首先一般为了方便，一般会在题目目录下直接打开cmd 先输入指令 python -m binwalk xxx.png查看图片是否有隐写了文件即为uncompressed的部分会给你name如果有，下一步就输入python -m binwalk -e xxx.png即可得到想要的flag文件。binwalk无法分离的情况，在 kali输入dd if&#x3D;misc14...
-            
-          </div>
+          <h1 id="misc各种题型思路总结"><a href="#misc各种题型思路总结" class="headerlink" title="misc各种题型思路总结"></a>misc各种题型思路总结</h1><h2 id="1-签到题"><a href="#1-签到题" class="headerlink" title="1.签到题"></a>1.签到题</h2><p>遇到签到题难度的题目。首先先看看题干有没有给出flag的线索，如果给的是网页，直接f12或者ctrl+u先查看源代码，通过ctrl+f查找flag或者是类似moectf{}等各大平台要求的结构。如果给的是图片，直接用010 editor 打开看看文件头和文件尾，查找flag,当然这只是签到题的难度。</p>
+<h2 id="2-隐写："><a href="#2-隐写：" class="headerlink" title="2.隐写："></a>2.隐写：</h2><p>(1)有些图片可能长宽设置的太小，改下大小就行，即为长宽修复，但要符合crc标准，有些文件的文件头或者文件尾被篡改，这时候就需要我们修复。</p>
+<p>(2)lsb隐写：用stegsolve查看各个通道，查看有没有flag的信息或者有没有其他文件的文件头特征。</p>
+<p>(3)binwalk的使用：首先一般为了方便，一般会在题目目录下直接打开cmd 先输入指令 python -m binwalk xxx.png查看图片是否有隐写了文件即为uncompressed的部分会给你name如果有，下一步就输入python -m binwalk -e xxx.png即可得到想要的flag文件。binwalk无法分离的情况，在 kali输入dd if&#x3D;misc14.jpg of&#x3D;1.jpg skip&#x3D;2103 bs&#x3D;1</p>
+<p>(4)gif文件：我们可以称之为动图文件，是由一帧帧的图片拼接而成，一般会将flag图片藏在某一帧里，我们要做的就是把gif每一帧的图片抽离开来，可以直接用WPS图片打开，例如buuctf的“金三胖”这一题，是不是有某几帧闪过了flag,这时候使用wps图片的“保存全部帧”的功能，即可找到flag。或者下载附件，有一个gif动画，flag藏在动画里，我们可以使用 <code>StegSolve</code> 软件的 <code>Frame Browser</code> 模式，逐帧读取获得flag。</p>
+<p>(5)图片隐写好用：zsteg(kali),直接可以解决lsb隐写和010的查看,[下载图片使用zsteg misc17.png命令，在使用zsteg -e extradata:0 misc17.png &gt;1.txt，最后使用binwalk -e 1.txt分离得到flag]常见套路</p>
+<p>import zlib</p>
+<p>with open(‘extracted_data1.zlib’, ‘rb’) as f:<br>    data1 &#x3D; f.read()</p>
+<p>try:<br>    decompressed_data1 &#x3D; zlib.decompress(data1)<br>    print(“— Data from extracted_data1.zlib —“)<br>    print(decompressed_data1)<br>    with open(‘unpacked1.dat’, ‘wb’) as f_out:<br>        f_out.write(decompressed_data1)<br>except Exception as e:<br>    print(f”Failed to decompress data1: {e}”)</p>
+<p>print(“\n” + “&#x3D;”*50 + “\n”)</p>
+<p>with open(‘extracted_data2.zlib’, ‘rb’) as f:<br>    data2 &#x3D; f.read()</p>
+<p>try:<br>    decompressed_data2 &#x3D; zlib.decompress(data2)<br>    print(“— Data from extracted_data2.zlib —“)<br>    print(decompressed_data2)</p>
+<pre><code>with open(&#39;unpacked2.dat&#39;, &#39;wb&#39;) as f_out:
+    f_out.write(decompressed_data2)
+</code></pre>
+<p>except Exception as e:<br>    print(f”Failed to decompress data2: {e}”)</p>
+<hr>
+<p>yolo@Yolo:~&#x2F;Desktop&#x2F;timu$ python tiqu.py<br>— Data from extracted_data1.zlib —<br>b’PK\x03\x04\n\x00\x00\x00\x00\x00\xc1|\r[R0G\xee \x00\x00\x00 \x00\x00\x00\n\x00\x00\x00secret.bin\x15\t\x02\x15VNETTAVCEPT@P\x12E\U\x17P\x12FUW\x17QCD\x01PK\x03\x04\x14\x00\x00\x00\x08\x00\x1b}\r[\xf8g\x00\xb5_\x00\x00\x00\xc3\x00\x00\x00\x08\x00\x00\x00hint.txt]M1\n\x800\x0c\xfcz\x1d\x9c\xac\x82\x88\x9b\x0fp\x88\xa0\x83\xa2(\xf8\x97\xd0\x88N\xfd\x82\xb1\xa5\xb1\x14\xc2q\xb9\xdc]\xae\xb6\xbe\xe7\xcal\xc5\x935\xf6\xd0\xa8JT\xda\xee&#39;*&#96;”\x9c\xc6\x89\xba\x9e\xf2\xc5\xac\x83\xf3\x00c <em>\xca\xd9\xfe,#O\xec\xf4W\xe9\x8cW\xdf O\x13]\xda\x12&#x3D;(\xf0\x02PK\x01\x02?\x00\n\x00\x00\x00\x00\x00\xc1|\r[R0G\xee \x00\x00\x00 \x00\x00\x00\n\x00$\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00\x00\x00secret.bin\n\x00 \x00\x00\x00\x00\x00\x01\x00\x18\x00]\xd3&#x3D;2%\x0c\xdc\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00PK\x01\x02?\x00\x14\x00\x00\x00\x08\x00\x1b}\r[\xf8g\x00\xb5</em>\x00\x00\x00\xc3\x00\x00\x00\x08\x00$\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00H\x00\x00\x00hint.txt\n\x00 \x00\x00\x00\x00\x00\x01\x00\x18\x00\xc1\xebz\x98%\x0c\xdc\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00PK\x05\x06\x00\x00\x00\x00\x02\x00\x02\x00\xb6\x00\x00\x00\xcd\x00\x00\x00\x00\x00’</p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>Failed to decompress data2: Error -3 while decompressing data: invalid stored block lengths<br>yolo@Yolo:<del>&#x2F;Desktop&#x2F;timu$ mv unpacked1.dat flag.zip<br>yolo@Yolo:</del>&#x2F;Desktop&#x2F;timu$ unzip flag.zip<br>Archive:  flag.zip<br> extracting: secret.bin</p>
+<p>  inflating: hint.txt</p>
+<p>from pathlib import Path</p>
+<p>请将此处替换为secret.bin文件的实际路径</p>
+<p>secret_bin_path &#x3D; Path(“C:\Users\21426\Downloads\_87.png-0.extracted\6F7BF_FILES\secret.bin”)  # 或者使用绝对路径，如 Path(“D:&#x2F;path&#x2F;to&#x2F;secret.bin”)</p>
+<p>def xorkey(d, k):<br>    k &#x3D; k.encode()<br>    return bytes(b ^ k[i % len(k)] for i, b in enumerate(d))</p>
+<p>try:<br>    # 读取文件数据<br>    data &#x3D; secret_bin_path.read_bytes()<br>    print(“成功读取secret.bin文件”)</p>
+<pre><code># 第1步：文件名hex作密钥（不含扩展名）
+fn_hex = &quot;3232353135345f6d6973632d504e475f4d4073743372&quot;  # &quot;225154_misc-PNG_M@st3r&quot; 的十六进制
+print(&quot;第1步结果:&quot;, xorkey(data, fn_hex))
+
+# 第2步：用 &#39;secret&#39; 作为密钥
+step2 = xorkey(data, &quot;secret&quot;).decode()
+print(&quot;第2步结果:&quot;, step2)
+
+# 第3步：hex转ASCII
+if &quot;:&quot; in step2:
+    flag_hex = step2.split(&quot;:&quot;)[1]
+    print(&quot;第3步结果:&quot;, bytes.fromhex(flag_hex).decode())
+else:
+    print(&quot;第2步结果格式不正确，无法提取flag&quot;)
+</code></pre>
+<p>except FileNotFoundError:<br>    print(f”错误：找不到文件 {secret_bin_path}”)<br>    print(“请检查文件路径是否正确”)<br>except Exception as e:<br>    print(f”发生错误：{e}”)</p>
+<p>(7)curl:content length</p>
+<p>(8)steghide:支持jpg，bmp隐写txt文件</p>
+<p>(9)看到一个zip 加密文件：1.看是不是伪加密  2.题目给出已知信息，可尝试暴力破解 3.题目给出掩码，可尝试掩码破解 3.题目未给出密码相关描述，要试试大概率是明文攻击：用bkcrack尝试破解。有明文文件直接用.</p>
+<p>(10)一种很新奇的加密方式：与佛论禅(佛曰&#x2F;如是我闻)解码:flag{w0_fo_ci_Be1}佛曰：遮等諳勝能礙皤藐哆娑梵迦侄羅哆迦梵者梵楞蘇涅侄室實真缽朋能。奢怛俱道怯都諳怖梵尼怯一罰心缽謹缽薩苦奢夢怯帝梵遠朋陀諳陀穆諳所呐知涅侄以薩怯想夷奢醯數羅怯諸</p>
+<p>(11)flag形式里只有_没有-</p>
+<p>(12)osint问题：需要通过搜索引擎例如谷歌百度</p>
+<p>(13)emoji文字解码有在线网站，要知道密钥</p>
+<p>(14)条形码：有在线网站</p>
+<p>(15)bpg文件：用honeyview打开</p>
+<p>(16)binwalk主要用来分离文件里的压缩包(包括zlib，这里面可能藏东西)，foremost用来分离文件里的图片</p>
+<p>(17)idat隐写：在tweakpng中删idat一个一个删，删对了就有图像了</p>
+<p>(18)隔位提取：ct¹f…s†hªoKw°{!aeS6¥eT34fxa%4Ý8ïf«52•8b‚1º7E4|2Td~7:2äeñ6úfõ4129T8ñ328é0l}规律题</p>
+<p>(19)pdf隐写：wbstego爆破就行，会有关不掉的情况，直接ctrl+shift+esc任务管理器强行关闭</p>
+<p>(20)Serpent解密：Serpent是snake的另一种表示，题目会给你隐藏的key,这时候直接用在线网站就可以，decrypt是解密</p>
+<p>(21)outguess隐写：kali outguess直接出,例如：outguess -k abc -r mmm.jpg flag.txt.</p>
+<p>(22)尾部一堆长得像base的，用010导入十六进制，再把txt导出，发现是坐标形式，这时候要用画图软件,将gnuplotTxt.txt放到gnuplot.exe的文件夹下，启动gnuplot，在命令行使用如下命令即可绘图。plot “gnuplotTxt.txt”</p>
+<p>转化为gnuplot能运行格式的脚本</p>
+<p>with open(‘result.txt’, ‘r’) as res:  # 坐标格式文件比如(7,7)<br>    re &#x3D; res.read()<br>    res.close()</p>
+<p>with open(‘gnuplotTxt.txt’, ‘w’) as gnup:   # 将转换后的坐标写入gnuplotTxt.txt<br>    re &#x3D; re.split()<br>    tem &#x3D; ‘’<br>    for i in range(0, len(re)):<br>        tem &#x3D; re[i]<br>        tem &#x3D; tem.lstrip(‘(‘)<br>        tem &#x3D; tem.rstrip(‘)’)<br>        for j in range(0, len(tem)):<br>            if tem[j] &#x3D;&#x3D; ‘,’:<br>                tem &#x3D; tem[:j] + ‘ ‘ + tem[j+1:]<br>        gnup.write(tem + ‘\n’)<br>    gnup.close()</p>
+<p>(23)base64隐写解码脚本：</p>
+<p>def get_base64_diff_value(s1, s2):<br>    base64chars &#x3D; ‘ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+&#x2F;‘<br>    res &#x3D; 0<br>    for i in xrange(len(s2)):<br>        if s1[i] !&#x3D; s2[i]:<br>            return abs(base64chars.index(s1[i]) - base64chars.index(s2[i]))<br>    return res</p>
+<p>def solve_stego():<br>    with open(‘E:&#x2F;abcc.txt’, ‘rb’) as f:<br>        file_lines &#x3D; f.readlines()<br>        bin_str &#x3D; ‘’<br>        for line in file_lines:<br>            steg_line &#x3D; line.replace(‘\n’, ‘’)<br>            norm_line &#x3D; line.replace(‘\n’, ‘’).decode(‘base64’).encode(‘base64’).replace(‘\n’, ‘’)<br>            diff &#x3D; get_base64_diff_value(steg_line, norm_line)<br>            print diff<br>            pads_num &#x3D; steg_line.count(‘&#x3D;’)<br>            if diff:<br>                bin_str +&#x3D; bin(diff)[2:].zfill(pads_num * 2)<br>            else:<br>                bin_str +&#x3D; ‘0’ * pads_num * 2<br>            print goflag(bin_str)</p>
+<p>def goflag(bin_str):<br>    res_str &#x3D; ‘’<br>    for i in xrange(0, len(bin_str), 8):<br>        res_str +&#x3D; chr(int(bin_str[i:i + 8], 2))<br>    return res_str</p>
+<p>if <strong>name</strong> &#x3D;&#x3D; ‘<strong>main</strong>‘:<br>    solve_stego()</p>
+<p>(24)得到hex代码，现在txt文件里保存,然后用010文件-&gt;导入十六进制</p>
+<p>(25)exiftool-kali找flag指令：exiftool * | grep flag ,exif在流量分析里有时候也是关键字</p>
+<p>(26)字频统计脚本，适用于大量无规律的文本（或者随波逐流）</p>
+<p>#Author: mochu7<br>alphabet &#x3D; “abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&amp;*()_+- &#x3D;\{\}[]”<br>strings &#x3D; open(‘.&#x2F;flag.txt’).read()</p>
+<p>result &#x3D; {}<br>for i in alphabet:<br>	counts &#x3D; strings.count(i)<br>	i &#x3D; ‘{0}’.format(i)<br>	result[i] &#x3D; counts</p>
+<p>res &#x3D; sorted(result.items(),key&#x3D;lambda item:item[1],reverse&#x3D;True)<br>for data in res:<br>	print(data)</p>
+<p>for i in res:<br>	flag &#x3D; str(i[0])<br>	print(flag[0],end&#x3D;””)</p>
+<p>import collections</p>
+<p>filename &#x3D; “谁多谁少，一算便知.txt”</p>
+<p>使用 with 语句读取文件全部内容</p>
+<p>with open(filename, ‘r’, encoding&#x3D;’utf-8’) as file:<br>    content &#x3D; file.read()</p>
+<p>— 1. 提取字符表 —</p>
+<p>character_table &#x3D; sorted(list(set(content)))<br>print(f”字符表 (共 {len(character_table)} 种):”)<br>print(‘’.join(character_table))<br>print(“-“ * 30)</p>
+<p>— 2. 统计每个字符的个数 —</p>
+<p>char_counts &#x3D; collections.Counter(content)</p>
+<p>— 3. 打印结果 (按数量从高到低排序) —</p>
+<p>print(“统计结果:”)</p>
+<p>定义特殊空白字符的可读性表示</p>
+<p>special_char_map &#x3D; {<br>    ‘\n’: r’\n (换行)’,<br>    ‘ ‘:  ‘  (空格)’,<br>    ‘\t’: r’\t (制表符)’<br>}</p>
+<p>for char, count in char_counts.most_common():<br>    display_char &#x3D; special_char_map.get(char, char)<br>    print(f”{display_char}:{count}”)</p>
+<p>(27)颜文字解码-&gt;aaencode解密</p>
+<p>(28)zipfile脚本：</p>
+<p>import zipfile</p>
+<p>name &#x3D; ‘0573’</p>
+<p>while True:</p>
+<p>  fz &#x3D; zipfile.ZipFile(name + ‘.zip’, ‘r’)</p>
+<p>  fz.extractall(pwd&#x3D;bytes(name, ‘utf-8’))</p>
+<p>  name &#x3D; fz.filelist[0].filename[0:4]</p>
+<p>  fz.close()</p>
+<p>(27)ook隐写：用brainfuck网站进行解密</p>
+<p>(28)修改图片尺寸，可以用照片的功能</p>
+<p>(29)pyc文件：用py网站反编译</p>
+<p>(30)图片xor：就是photo1.png^photo2.png，就是几个通道的编号0提取一下。然后使用StegSolve自带的Image Combiner进行xor处理。</p>
+<p>最终使用Alpha Plane0和Green Plane0进行异或的时候得到Flag。</p>
+<p>(31)snow隐写：snow.exe -p “brainfuckisgooooood” 咏雪.txt</p>
+<p>​                            snow.exe -p “密码：key” 必须是txt文件（其他文件复制粘贴到txt文件中）  </p>
+<h2 id="3-流量分析："><a href="#3-流量分析：" class="headerlink" title="3.流量分析："></a>3.流量分析：</h2><p>(1)htttp:    http.request.method&#x3D;&#x3D;POST进行过滤</p>
+<p>(2)最简单的一类：直接ctrl+f寻找flag</p>
+<p>(3)如果搜完之后没有发现信息，先看统计里的协议分级，看看哪个流占比多，研究对象就是那个流</p>
+<p>(4)进行追踪流操作。</p>
+<p>(5)追踪流后：1.如果有base64，导出（注意删一些换行符和运行时间）</p>
+<p>(6)问到账号和密码，优先考虑http流，找到类似login的登录请求,找到name,admin,password等词语</p>
+<p>(7)在流量中藏压缩包时，可以直接用binwalk分离</p>
+<p>(8)菜刀，菜刀传输是POST</p>
+<p>http.request.method&#x3D;&#x3D;”POST”</p>
+<p>(8)string xxx.pcap | grep {    寻找flag的一种方式</p>
+<p>这种一星简单流量包，就先看看是不是存在flag、f14g、f1ag、fl4g等字符串</p>
+<p>http contains “shell”搜索webshell</p>
+<h2 id="4-路由器问题："><a href="#4-路由器问题：" class="headerlink" title="4.路由器问题："></a>4.路由器问题：</h2><p>查看文件没有发现什么特殊信息，题目也没有提示。我们尝试将用户名（Username）和密码（Password）作为flag值提交，最后确认用户名为flag值。（如果找不到Username、Password，可以使用Ctrl+f查找）用软件routerpassview</p>
+<h2 id="5-webshell问题："><a href="#5-webshell问题：" class="headerlink" title="5.webshell问题："></a>5.webshell问题：</h2><p>使用查杀工具D盾，扫描，如果有md5，那么md5就是flag，md5找pass字符</p>
+<h2 id="6-编码基础："><a href="#6-编码基础：" class="headerlink" title="6.编码基础："></a>6.编码基础：</h2><p>(1)培根密码：直接一把梭</p>
+<p>(2)凯撒密码：除了密文之外，key是0-25的其中一个</p>
+<h2 id="7-蓝屏文件分析："><a href="#7-蓝屏文件分析：" class="headerlink" title="7.蓝屏文件分析："></a>7.蓝屏文件分析：</h2><p>analyze -v</p>
+<h2 id="8-取证"><a href="#8-取证" class="headerlink" title="8.取证"></a>8.取证</h2><p>volaility3使用：vol3 -py -xxx</p>
+<p><strong>这里需要注意 ：<code>Volatility3</code>和<code>Volatility2</code>用法差不多，但不需要指定<code>profile</code> ，只是插件调用方式改变，特定的操作系统有特定的插件</strong></p>
+<p><strong>文件格式 <code>ctf-flat.vmdk</code></strong></p>
+<ul>
+<li><code>.vmdk</code> 文件通常是 <strong>VMware 虚拟机的虚拟磁盘文件</strong>，也就是虚拟硬盘，而不是内存镜像。</li>
+<li>Volatility 是一个<strong>内存取证</strong>工具，它分析的是 RAM 的内容快照（通常是 <code>.vmem</code>, <code>.raw</code>, <code>.dmp</code> 等格式），而不是硬盘。</li>
+</ul>
+<h3 id="正确的-Volatility-3-工作流程"><a href="#正确的-Volatility-3-工作流程" class="headerlink" title="正确的 Volatility 3 工作流程"></a>正确的 Volatility 3 工作流程</h3><p>既然 <code>imageinfo</code> 不再使用，那么在 Volatility 3 中，我们如何获取镜像信息呢？</p>
+<p>答案是使用新的、对应平台的 <code>info</code> 插件。</p>
+<h4 id="第-1-步：使用正确的-info-插件"><a href="#第-1-步：使用正确的-info-插件" class="headerlink" title="第 1 步：使用正确的 info 插件"></a>第 1 步：使用正确的 <code>info</code> 插件</h4><ul>
+<li><p><strong>如果怀疑是 Windows 系统</strong>，使用 <code>windows.info.Info</code> 插件：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vol3 -f ctf-flat.vmdk windows.info.Info</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>如果怀疑是 Linux 系统</strong>，使用 <code>linux.info.Info</code> 插件 (不过 Linux 通常用 <code>kallsyms</code> 或 <code>banners</code> 辅助判断)：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vol3 -f ctf-flat.vmdk linux.banners.Banners</span><br><span class="line"># 或者</span><br><span class="line">vol3 -f ctf-flat.vmdk linux.kallsyms.Kallsyms</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>执行这些命令后，Volatility 3 会开始分析文件。如果它能识别出内核，就会自动下载符号表（首次分析时会比较慢），然后输出详细的系统信息。</p>
+<h4 id="第-2-步：运行其他插件"><a href="#第-2-步：运行其他插件" class="headerlink" title="第 2 步：运行其他插件"></a>第 2 步：运行其他插件</h4><p>一旦 <code>info</code> 插件成功运行，说明符号表已经就位，您就可以直接运行其他插件了，<strong>无需再指定任何 Profile</strong>。</p>
+<p>例如，查看进程列表：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"># 假设是 Windows 系统</span><br><span class="line">vol3 -f ctf-flat.vmdk windows.pslist.PsList</span><br><span class="line"></span><br><span class="line"># 假设是 Linux 系统</span><br><span class="line">vol3 -f ctf-flat.vmdk linux.pslist.PsList</span><br><span class="line">下一步行动计划 (CTF 解题思路)</span><br><span class="line">在 CTF 比赛中，内存取证题目的目标通常是找到隐藏的 flag、恶意进程、可疑的网络连接、执行过的命令、加密文件或密码等。以下是标准的排查流程，您可以按顺序尝试：</span><br><span class="line"></span><br><span class="line">1. 查看进程列表 (pslist)</span><br><span class="line">这是必做的第二步。目的是寻找异常或可疑的进程。正常情况下，Windows 7 会有很多系统进程，但 CTF 题目中往往会混入一些命名奇怪或不常见的进程。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line">vol3 -f mem.raw windows.pslist.PsList</span><br><span class="line">关注点：</span><br><span class="line"></span><br><span class="line">有没有像 flag.exe, ctf.exe, nc.exe (Netcat), password.txt 这样的可疑名字？</span><br><span class="line">有没有一些不常见的进程名，可以放到 Google 上搜索一下？</span><br><span class="line">注意进程的启动时间，是否与 SystemTime (13:08) 相近？</span><br><span class="line">2. 查看进程树 (pstree)</span><br><span class="line">pstree 可以帮助你理解进程之间的父子关系。例如，如果一个 cmd.exe 启动了一个可疑程序，这里就能看得很清楚。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line">vol3 -f mem.raw windows.pstree.PsTree</span><br><span class="line">关注点：</span><br><span class="line"></span><br><span class="line">是谁启动了可疑进程？是 explorer.exe (用户正常启动) 还是 services.exe (作为服务启动)？</span><br><span class="line">有没有孤儿进程（没有父进程或父进程已退出）？</span><br><span class="line">3. 查看命令行历史 (cmdline / consoles)</span><br><span class="line">检查攻击者或用户在终端里输入了什么命令，这通常是找到 flag 的直接线索。</span><br><span class="line"></span><br><span class="line">cmdline: 查看进程启动时的完整命令行参数。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line">vol3 -f mem.raw windows.cmdline.CmdLine</span><br><span class="line">关注点：有些程序会将 flag 或密码作为启动参数，比如 cmd.exe /c &quot;echo flag&#123;...&#125;&quot;。</span><br><span class="line"></span><br><span class="line">consoles: 查看控制台程序的屏幕缓冲区内容，可能会直接显示出命令的输出结果。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line">vol3 -f mem.raw windows.consoles.Consoles</span><br><span class="line">关注点：如果攻击者运行了 type flag.txt 这样的命令，内容可能就留在这里。</span><br><span class="line"></span><br><span class="line">4. 查看网络连接 (netscan)</span><br><span class="line">检查当时是否存在可疑的网络活动。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line">vol3 -f mem.raw windows.netscan.NetScan</span><br><span class="line">关注点：</span><br><span class="line"></span><br><span class="line">有没有连接到奇怪的 IP 地址或端口？</span><br><span class="line">有没有处于 LISTENING 状态的可疑端口？（可能是后门）</span><br><span class="line">哪个进程 (Owner) 建立了这些连接？</span><br><span class="line">5. 扫描文件 (filescan) 和转储文件 (dumpfiles)</span><br><span class="line">如果怀疑有包含 flag 的文件，比如 flag.txt，可以先扫描内存中缓存的文件对象。</span><br><span class="line"></span><br><span class="line">filescan: 扫描内存中的文件对象。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line">vol3 -f mem.raw windows.filescan.FileScan</span><br><span class="line">关注点：用 grep 过滤你感兴趣的文件名，比如 flag 或 .txt。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line"># 使用 grep 过滤，-i 表示忽略大小写</span><br><span class="line">vol3 -f mem.raw windows.filescan.FileScan | grep -i &quot;flag&quot;</span><br><span class="line">vol3 -f mem.raw windows.filescan.FileScan | grep -i &quot;\.txt&quot;</span><br><span class="line">vol3 -f mem.raw windows.filescan.FileScan | grep -i &quot;password&quot;</span><br><span class="line">dumpfiles: 如果 filescan 找到了可疑文件，记下它的物理地址 (第一列 Offset (P))，然后用 dumpfiles 把它从内存里提取出来。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line"># 假设你找到的文件物理地址是 0x12345678</span><br><span class="line">vol3 -f mem.raw windows.dumpfiles.DumpFiles --physaddr 0x12345678</span><br><span class="line">执行后，会在当前目录下生成一个文件，你可以用 cat 或文本编辑器打开查看。</span><br><span class="line"></span><br><span class="line">6. 扫描可疑代码/注入 (malfind)</span><br><span class="line">malfind 是一个强大的插件，用于寻找隐藏的或被注入的代码，常用于检测恶意软件。</span><br><span class="line"></span><br><span class="line">Bash</span><br><span class="line"></span><br><span class="line">vol3 -f mem.raw windows.malfind.Malfind</span><br><span class="line">关注点：</span><br><span class="line"></span><br><span class="line">它会标记出具有 Read-Write-Execute (RWX) 权限的内存页，这通常是可疑代码的标志。</span><br><span class="line">它还会尝试反汇编这些内存区域的开头，你可能会直接看到一些字符串或代码逻辑。</span><br><span class="line">如果 malfind 有发现，记下对应的进程 PID 和内存地址，可以进一步使用 dumpfiles 提取这部分内存进行分析。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>非常好！<code>pslist</code> 的结果给了我们极其重要的线索。让我们像侦探一样分析这份进程列表。</p>
+<h3 id="关键发现分析"><a href="#关键发现分析" class="headerlink" title="关键发现分析"></a>关键发现分析</h3><ol>
+<li><strong><code>DumpIt.exe</code> (PID 2864)</strong><ul>
+<li><strong>这是最最最可疑的进程！</strong></li>
+<li><code>DumpIt.exe</code> 是一个非常知名的内存获取工具（类似于 FTK Imager、WinPmem）。它的作用就是创建我们现在正在分析的这个 <code>mem.raw</code> 文件。</li>
+<li>它的出现几乎可以肯定，这次内存转储是出题人<strong>故意</strong>在某个特定时刻进行的。</li>
+<li><strong>创建时间</strong>: <code>2021-05-20 13:08:32 UTC</code>。这与我们之前看到的 <code>SystemTime</code> (<code>13:08:33</code>) 完全吻合。这说明，在 <code>DumpIt.exe</code> 运行后几乎立刻，内存就被 Dump 下来了。</li>
+</ul>
+</li>
+<li><strong><code>cmd.exe</code> (PID 2624)</strong><ul>
+<li><strong>这是第二重要的线索！</strong></li>
+<li>它的创建时间是 <code>2021-05-20 13:04:35 UTC</code>，比 <code>DumpIt.exe</code> 早了大约 4 分钟。</li>
+<li>它的父进程是 <code>explorer.exe</code> (PID 1700)，说明这是用户手动打开的一个命令行窗口。</li>
+<li>一个在 dump 前几分钟打开，并且在 dump 时仍然在运行的 <code>cmd.exe</code>，极有可能是攻击者&#x2F;出题人进行操作的窗口。<strong>这里面一定有秘密！</strong></li>
+</ul>
+</li>
+<li><strong><code>conhost.exe</code> (PID 1588 和 2824)</strong><ul>
+<li><code>conhost.exe</code> 是 Windows 7 的控制台窗口主机进程。每个 <code>cmd.exe</code> 都会有一个配对的 <code>conhost.exe</code>。</li>
+<li><code>cmd.exe</code> (PID 2624) 配对的是 <code>conhost.exe</code> (PID 1588)。</li>
+<li><code>DumpIt.exe</code> (PID 2864) 配对的是 <code>conhost.exe</code> (PID 2824)。这说明 <code>DumpIt.exe</code> 可能也是一个命令行工具。</li>
+</ul>
+</li>
+</ol>
+<p><strong>核心推论：</strong> 出题人很可能先打开了一个 <code>cmd.exe</code> 窗口（PID 2624），在里面执行了一些操作，最后运行了 <code>DumpIt.exe</code> 来“固定证据”，然后把生成的内存镜像给了我们。</p>
+<p>我们的目标就是<strong>复现这个 <code>cmd.exe</code> 窗口里发生的一切！</strong></p>
+<hr>
+<h3 id="下一步：深挖-cmd-exe-的秘密"><a href="#下一步：深挖-cmd-exe-的秘密" class="headerlink" title="下一步：深挖 cmd.exe 的秘密"></a>下一步：深挖 <code>cmd.exe</code> 的秘密</h3><p>现在，我们的所有注意力都应该集中在 PID 为 2624 的 <code>cmd.exe</code> 进程上。</p>
+<h4 id="行动-1：检查命令行-cmdline"><a href="#行动-1：检查命令行-cmdline" class="headerlink" title="行动 1：检查命令行 (cmdline)"></a>行动 1：检查命令行 (<code>cmdline</code>)</h4><p>首先，看看这个 <code>cmd.exe</code> 是怎么启动的，有没有奇怪的参数。</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vol3 -f mem.raw windows.cmdline.CmdLine</span><br></pre></td></tr></table></figure>
+
+<p><strong>预期结果</strong>：</p>
+<ul>
+<li>你可能会看到很多进程的启动命令。找到 PID 为 2624 的那一行。</li>
+<li>它很可能就是简单的 <code>C:\Windows\system32\cmd.exe</code>，但万一有 <code>/c</code> 或 <code>/k</code> 之类的参数，就值得特别注意。</li>
+</ul>
+<h4 id="行动-2：检查控制台内容-consoles-【最关键的一步】"><a href="#行动-2：检查控制台内容-consoles-【最关键的一步】" class="headerlink" title="行动 2：检查控制台内容 (consoles) - 【最关键的一步】"></a>行动 2：检查控制台内容 (<code>consoles</code>) - <strong>【最关键的一步】</strong></h4><p>这是最有可能直接找到 flag 的一步！这个插件会尝试恢复 <code>cmd.exe</code> 窗口的屏幕缓冲区，也就是<strong>用户能看到的所有文字内容，包括输入的命令和命令的输出</strong>。</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vol3 -f mem.raw windows.consoles.Consoles</span><br></pre></td></tr></table></figure>
+
+<p><strong>仔细检查输出！</strong></p>
+<ul>
+<li><p>寻找 PID 为 2624 (<code>cmd.exe</code>) 或 1588 (<code>conhost.exe</code>) 的部分。</p>
+</li>
+<li><p>里面可能会有类似下面的内容：</p>
+<p>text</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt; dir</span><br><span class="line">...</span><br><span class="line">C:\Users\Administrator&gt; type flag.txt</span><br><span class="line">flag&#123;this_is_a_very_ez_flag&#125;</span><br><span class="line">C:\Users\Administrator&gt; C:\Users\Administrator\Desktop\DumpIt.exe</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>任何 <code>echo</code>, <code>type</code>, <code>findstr</code> 等命令的输出都是重点关注对象。</p>
+</li>
+<li><p>即使没有 flag，也可能会有其他提示，比如一个加密文件的密码，或者一个奇怪的文件名。</p>
+</li>
+</ul>
+<h4 id="行动-3：如果-consoles-没有发现，转而寻找文件"><a href="#行动-3：如果-consoles-没有发现，转而寻找文件" class="headerlink" title="行动 3：如果 consoles 没有发现，转而寻找文件"></a>行动 3：如果 <code>consoles</code> 没有发现，转而寻找文件</h4><p>如果 <code>consoles</code> 里空空如也（可能性不大，但也有可能），那么出题人可能把 flag 放在了文件里。</p>
+<p>这时，我们再回到之前的文件扫描路线：</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># -i 忽略大小写, -E 使用扩展正则表达式，可以同时匹配多个关键词</span><br><span class="line">vol3 -f mem.raw windows.filescan.FileScan | grep -iE &quot;flag|password|key|secret&quot;</span><br></pre></td></tr></table></figure>
+
+<p>如果找到了可疑文件（比如 <code>flag.txt</code>），记下它的物理地址（第一列 Offset），然后用 <code>dumpfiles</code> 把它 dump 出来。</p>
+<p>Bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 假设找到的 flag.txt 物理地址是 0xdeadbeef</span><br><span class="line">vol3 -f mem.raw windows.dumpfiles.DumpFiles --physaddr 0xdeadbeef</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-压缩包全解压脚本："><a href="#9-压缩包全解压脚本：" class="headerlink" title="9.压缩包全解压脚本："></a>9.压缩包全解压脚本：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">import shutil</span><br><span class="line">import zipfile</span><br><span class="line">import tarfile</span><br><span class="line">import gzip</span><br><span class="line">import bz2</span><br><span class="line">import lzma</span><br><span class="line">import py7zr</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line"># --- 配置 ---</span><br><span class="line">START_ARCHIVE = &#x27;layer_1000.7z&#x27;</span><br><span class="line">WORKING_DIR = &#x27;temp_extraction_folder&#x27;</span><br><span class="line">FINAL_DIR = &#x27;final_content&#x27;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ----------------</span><br><span class="line"></span><br><span class="line">def is_archive(filename):</span><br><span class="line">    &quot;&quot;&quot;根据文件名后缀判断是否是支持的压缩文件类型（更强大的版本）&quot;&quot;&quot;</span><br><span class="line">    fn_lower = filename.lower()</span><br><span class="line"></span><br><span class="line">    # 标准的以点开头的扩展名</span><br><span class="line">    supported_extensions = [</span><br><span class="line">        &#x27;.7z&#x27;, &#x27;.zip&#x27;, &#x27;.tar&#x27;, &#x27;.gz&#x27;, &#x27;.tgz&#x27;,</span><br><span class="line">        &#x27;.bz2&#x27;, &#x27;.tbz2&#x27;, &#x27;.xz&#x27;, &#x27;.txz&#x27;</span><br><span class="line">    ]</span><br><span class="line">    for ext in supported_extensions:</span><br><span class="line">        if fn_lower.endswith(ext):</span><br><span class="line">            return True</span><br><span class="line"></span><br><span class="line">    # &lt;-- 修改: 增加对 &#x27;tar_gz&#x27; 这类非标准后缀的检查</span><br><span class="line">    if fn_lower.endswith((&#x27;tar_gz&#x27;, &#x27;tar_bz2&#x27;, &#x27;tar_xz&#x27;)):</span><br><span class="line">        return True</span><br><span class="line"></span><br><span class="line">    return False</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def decompress_once(file_path, destination_dir):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    对单个文件进行一次解压操作</span><br><span class="line">    返回新解压出的文件名列表</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    print(f&quot;-&gt; 正在解压: &#123;os.path.basename(file_path)&#125;&quot;)</span><br><span class="line"></span><br><span class="line">    before_files = set(os.listdir(destination_dir))</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        filename_lower = file_path.lower()</span><br><span class="line"></span><br><span class="line">        # &lt;-- 修改: 将 &#x27;tar_gz&#x27; 等非标准名称加入 tarfile 的处理逻辑中</span><br><span class="line">        # 优先处理 tar 系列压缩包，因为它们可能包含 .gz, .bz2 等后缀</span><br><span class="line">        if filename_lower.endswith(</span><br><span class="line">                (&#x27;.tar&#x27;, &#x27;.tar.gz&#x27;, &#x27;.tgz&#x27;, &#x27;.tar.bz2&#x27;, &#x27;.tbz2&#x27;, &#x27;.tar.xz&#x27;, &#x27;.txz&#x27;, &#x27;tar_gz&#x27;, &#x27;tar_bz2&#x27;, &#x27;tar_xz&#x27;)):</span><br><span class="line">            # &#x27;r:*&#x27; 模式可以自动检测压缩类型 (gz, bz2, xz)</span><br><span class="line">            with tarfile.open(file_path, &#x27;r:*&#x27;) as t:</span><br><span class="line">                t.extractall(path=destination_dir)</span><br><span class="line">        elif filename_lower.endswith(&#x27;.7z&#x27;):</span><br><span class="line">            with py7zr.SevenZipFile(file_path, mode=&#x27;r&#x27;) as z:</span><br><span class="line">                z.extractall(path=destination_dir)</span><br><span class="line">        elif filename_lower.endswith(&#x27;.zip&#x27;):</span><br><span class="line">            with zipfile.ZipFile(file_path, &#x27;r&#x27;) as z:</span><br><span class="line">                z.extractall(path=destination_dir)</span><br><span class="line">        elif filename_lower.endswith(&#x27;.gz&#x27;):</span><br><span class="line">            output_path = os.path.join(destination_dir, os.path.basename(file_path)[:-3])</span><br><span class="line">            with gzip.open(file_path, &#x27;rb&#x27;) as f_in:</span><br><span class="line">                with open(output_path, &#x27;wb&#x27;) as f_out:</span><br><span class="line">                    shutil.copyfileobj(f_in, f_out)</span><br><span class="line">        elif filename_lower.endswith(&#x27;.bz2&#x27;):</span><br><span class="line">            output_path = os.path.join(destination_dir, os.path.basename(file_path)[:-4])</span><br><span class="line">            with bz2.open(file_path, &#x27;rb&#x27;) as f_in:</span><br><span class="line">                with open(output_path, &#x27;wb&#x27;) as f_out:</span><br><span class="line">                    shutil.copyfileobj(f_in, f_out)</span><br><span class="line">        elif filename_lower.endswith(&#x27;.xz&#x27;):</span><br><span class="line">            output_path = os.path.join(destination_dir, os.path.basename(file_path)[:-3])</span><br><span class="line">            with lzma.open(file_path, &#x27;rb&#x27;) as f_in:</span><br><span class="line">                with open(output_path, &#x27;wb&#x27;) as f_out:</span><br><span class="line">                    shutil.copyfileobj(f_in, f_out)</span><br><span class="line">        else:</span><br><span class="line">            print(f&quot;不支持的文件类型: &#123;file_path&#125;&quot;)</span><br><span class="line">            return []</span><br><span class="line"></span><br><span class="line">    except Exception as e:</span><br><span class="line">        print(f&quot;解压 &#123;os.path.basename(file_path)&#125; 时发生错误: &#123;e&#125;&quot;)</span><br><span class="line">        # 尝试继续，比如 tarfile 可能会因为文件不是 tar 格式而报错</span><br><span class="line">        return None</span><br><span class="line"></span><br><span class="line">    after_files = set(os.listdir(destination_dir))</span><br><span class="line">    new_files = after_files - before_files</span><br><span class="line"></span><br><span class="line">    return [os.path.join(destination_dir, f) for f in new_files]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    &quot;&quot;&quot;主执行函数&quot;&quot;&quot;</span><br><span class="line">    start_time = time.time()</span><br><span class="line"></span><br><span class="line">    if not os.path.exists(START_ARCHIVE):</span><br><span class="line">        print(f&quot;错误：初始压缩包 &#x27;&#123;START_ARCHIVE&#125;&#x27; 不存在！&quot;)</span><br><span class="line">        return</span><br><span class="line"></span><br><span class="line">    if os.path.exists(WORKING_DIR):</span><br><span class="line">        shutil.rmtree(WORKING_DIR)</span><br><span class="line">    os.makedirs(WORKING_DIR)</span><br><span class="line"></span><br><span class="line">    if os.path.exists(FINAL_DIR):</span><br><span class="line">        shutil.rmtree(FINAL_DIR)</span><br><span class="line">    os.makedirs(FINAL_DIR)</span><br><span class="line"></span><br><span class="line">    current_file = os.path.join(WORKING_DIR, os.path.basename(START_ARCHIVE))</span><br><span class="line">    shutil.copy(START_ARCHIVE, current_file)</span><br><span class="line"></span><br><span class="line">    layer_count = 0</span><br><span class="line">    while current_file and is_archive(current_file):</span><br><span class="line">        layer_count += 1</span><br><span class="line">        print(f&quot;\n--- 第 &#123;layer_count&#125; 层 ---&quot;)</span><br><span class="line"></span><br><span class="line">        new_files = decompress_once(current_file, WORKING_DIR)</span><br><span class="line"></span><br><span class="line">        if new_files is None:</span><br><span class="line">            print(&quot;解压过程出错，程序终止。&quot;)</span><br><span class="line">            break</span><br><span class="line"></span><br><span class="line">        old_file_to_remove = current_file</span><br><span class="line"></span><br><span class="line">        if not new_files:</span><br><span class="line">            print(&quot;解压后未产生新文件，可能已是最后一层。&quot;)</span><br><span class="line">            current_file = None  # 终止循环</span><br><span class="line">        elif len(new_files) == 1:</span><br><span class="line">            current_file = new_files[0]</span><br><span class="line">        else:</span><br><span class="line">            print(f&quot;警告：解压后得到 &#123;len(new_files)&#125; 个文件。将自动寻找下一个压缩包。&quot;)</span><br><span class="line">            next_archive = None</span><br><span class="line">            for f in new_files:</span><br><span class="line">                if is_archive(f):</span><br><span class="line">                    next_archive = f</span><br><span class="line">                    print(f&quot;找到下一个目标: &#123;os.path.basename(f)&#125;&quot;)</span><br><span class="line">                    break</span><br><span class="line">            if not next_archive:</span><br><span class="line">                print(&quot;在解压出的多个文件中未找到下一个压缩包，程序终止。&quot;)</span><br><span class="line">            current_file = next_archive</span><br><span class="line"></span><br><span class="line">        try:</span><br><span class="line">            if os.path.exists(old_file_to_remove):</span><br><span class="line">                os.remove(old_file_to_remove)</span><br><span class="line">                print(f&quot;&lt;- 已清理: &#123;os.path.basename(old_file_to_remove)&#125;&quot;)</span><br><span class="line">        except OSError as e:</span><br><span class="line">            print(f&quot;清理文件失败: &#123;e&#125;&quot;)</span><br><span class="line"></span><br><span class="line">    # 循环结束，处理最终文件</span><br><span class="line">    final_file_path = current_file if current_file else old_file_to_remove</span><br><span class="line">    if os.path.exists(final_file_path):</span><br><span class="line">        print(&quot;\n==========================================&quot;)</span><br><span class="line">        print(&quot;🎉 解压完成！已找到最底层文件。&quot;)</span><br><span class="line">        final_filename = os.path.basename(final_file_path)</span><br><span class="line">        destination_path = os.path.join(FINAL_DIR, final_filename)</span><br><span class="line">        shutil.move(final_file_path, destination_path)</span><br><span class="line">        print(f&quot;最终文件 &#x27;&#123;final_filename&#125;&#x27; 已移动到 &#x27;&#123;FINAL_DIR&#125;&#x27; 文件夹中。&quot;)</span><br><span class="line"></span><br><span class="line">        try:</span><br><span class="line">            with open(destination_path, &#x27;r&#x27;, encoding=&#x27;utf-8&#x27;) as f:</span><br><span class="line">                content = f.read(200)</span><br><span class="line">                print(&quot;\n文件内容预览:&quot;)</span><br><span class="line">                print(&quot;--------------------&quot;)</span><br><span class="line">                print(content)</span><br><span class="line">                print(&quot;--------------------&quot;)</span><br><span class="line">                if &quot;flag&quot; in content.lower() or &quot;&#123;&quot; in content:</span><br><span class="line">                    print(&quot;提示：在文件中找到了 &#x27;flag&#x27; 或 &#x27;&#123;&#x27; 等关键词！&quot;)</span><br><span class="line">                    if &quot;flag&#123;I_lOve_Y0u&#125;&quot; in content:</span><br><span class="line">                        print(&quot;\n&gt;&gt;&gt; 恭喜！Flag找到了！&lt;&lt;&lt;&quot;)</span><br><span class="line">        except Exception:</span><br><span class="line">            print(&quot;无法以文本方式读取最终文件，它可能是二进制文件。&quot;)</span><br><span class="line">    else:</span><br><span class="line">        print(&quot;\n未能找到最终文件。&quot;)</span><br><span class="line"></span><br><span class="line">    shutil.rmtree(WORKING_DIR)</span><br><span class="line">    print(f&quot;临时工作目录 &#x27;&#123;WORKING_DIR&#125;&#x27; 已被清理。&quot;)</span><br><span class="line"></span><br><span class="line">    end_time = time.time()</span><br><span class="line">    print(f&quot;\n总耗时: &#123;end_time - start_time:.2f&#125; 秒&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &#x27;__main__&#x27;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+
+
         
       </div>
 
+       
+        <footer class="article-footer">
+           
+        </footer>
          
     </div>
     
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2025/12/18/misc%E5%90%84%E7%A7%8D%E9%A2%98%E5%9E%8B%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
      
   </div>
   
@@ -325,6 +518,8 @@
 
 
 <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
    
   <div class="article-inner">
     <div class="article-main">
@@ -361,39 +556,30 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <div class="truncate-text">
-            
-              Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 
-More info: Writing
-Run server1$ hexo server
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
 
-More info: Server
-Generate static files1$ hexo generate
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
 
-More info: Generating
-Deploy to remote sites1$ hexo deploy
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-More info: Deployment
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
-            
-          </div>
         
       </div>
 
+       
+        <footer class="article-footer">
+           
+        </footer>
          
     </div>
     
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2025/12/12/hello-world/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
-    </a>
      
   </div>
   
